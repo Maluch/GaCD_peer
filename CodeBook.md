@@ -30,6 +30,9 @@ These signals were used to estimate variables of the feature vector for each pat
 * fBodyGyroMag
 * fBodyGyroJerkMag
 
+Data set was taken from: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+
 
 # Variables
 
@@ -109,6 +112,34 @@ Additionally two first columns refer to:
 
 * subject.id - identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
 * class - one of 6 class activity name (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
+
+
+
+# Performed transformations (additional comments in run_analysis.R file)
+
+The task was to create one R script called run_analysis.R that does the following:
+1. Merges the training and the test sets to create one data set.
+1. Extracts only the measurements on the mean and standard deviation for each measurement. 
+1. Uses descriptive activity names to name the activities in the data set
+1. Appropriately labels the data set with descriptive activity names. 
+1. Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+
+
+All performed transformations of original data into tidy data set:
+1. all needed files were read with check if the files exist (lines 28-108)
+1. feature labels were merged into one vactor including "subject.id" and "class" (line 115)
+1. test set data were merged into one data.frame and renamed (lines 118-119)
+1. train set data were merged into one data.frame and renamed (lines 122-123)
+1. test and train sets were merged into one data.frame object (line 126)
+1. "mean()" and "std()" substrings were found in features labels with use of stringr package (lines 136-137)
+1. logical vectors from previous point were logically added (line 138)
+1. "subject.id" and "class" columns got TRUE values in the logical vector of columns to be left in the data (line 140)
+1. subset of subject id, class and mean and standard deviation for each measurement was extracted from data (line 143)
+1. class labels were replaced in the data set with descriptive activity names (line 151)
+1. tidy data set was created containing the average of each variable for each activity and each subject with use of reshape2 package (lines 162-164)
+1. final data.frame with tidy data set was saved (line 169)
+
+
 
 # References
 
