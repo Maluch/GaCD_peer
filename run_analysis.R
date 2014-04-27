@@ -1,18 +1,21 @@
-computer.name <- Sys.info()["nodename"]
+# computer.name <- Sys.info()["nodename"]
+# 
+# 
+# # working directory
+# 
+# if (computer.name == "MALUCH-T420")    
+#   work.dir <- "d://uczelnia/coursera/Getting and Cleaning Data/GaCD_peer/"
+# 
+# if (computer.name == "YOUR-COMPUTER-NAME")    
+#   work.dir <- "your/directory"
+# 
+# setwd(work.dir)
 
 
-# working directory
-
-if (computer.name == "MALUCH-T420")    
-  work.dir <- "d://uczelnia/coursera/Getting and Cleaning Data/GaCD_peer/"
-
-if (computer.name == "YOUR-COMPUTER-NAME")    
-  work.dir <- "your/directory"
-
-setwd(work.dir)
 
 # directory with original data files
-data.dir <- paste(work.dir, "UCI HAR Dataset/", sep="")
+# data.dir <- paste(work.dir, "/UCI HAR Dataset/", sep="")
+data.dir <- getwd()
 
 # checking if all nedded files are there (only in the root dir of the data set)
 needed.files.and.dirs <- c("activity_labels.txt", "features.txt", "features_info.txt", 
@@ -22,10 +25,10 @@ if (sum(na.omit(list.files(data.dir)%in%needed.files.and.dirs)) == 6){
 
   
   # getting activity names and their links to the class labels
-  activity.names <- read.table(paste(data.dir, "activity_labels.txt", sep=""))
+  activity.names <- read.table(paste(data.dir, "/activity_labels.txt", sep=""))
   
   # getting feature labels vector (length 561)
-  feature.labels <- as.vector(read.table(paste(data.dir, "features.txt", sep=""))[,2])
+  feature.labels <- as.vector(read.table(paste(data.dir, "/features.txt", sep=""))[,2])
   
   
   ################
@@ -33,35 +36,35 @@ if (sum(na.omit(list.files(data.dir)%in%needed.files.and.dirs)) == 6){
   ################
   
   # setting training set directory
-  train.dir <- paste(data.dir, "train/", sep="")
+  train.dir <- paste(data.dir, "/train", sep="")
   
   # getiing X train
-  X.train.path <- paste(train.dir, "X_train.txt", sep="")
+  X.train.path <- paste(train.dir, "/X_train.txt", sep="")
   # reading file content (dim 7352  561)
   if(file.exists(X.train.path)){
     train.set <- read.table(X.train.path)
   }else{
-    print("!!! missing file !!!" )
-    print(X.train.path)
+    simpleError("!!! missing file !!!" )
+    simpleError(X.train.path)
   }
   
   # getiing training class labels (linked with activity names)
-  y.train.path <- paste(train.dir, "y_train.txt", sep="")
+  y.train.path <- paste(train.dir, "/y_train.txt", sep="")
   # reading file content (length 7352)
   if(file.exists(y.train.path)){
     train.class <- as.vector(read.table(y.train.path)[,1])
   }else{
-    print("!!! missing file !!!" )
-    print(y.train.path)
+    simpleError("!!! missing file !!!" )
+    simpleError(y.train.path)
   }
   
   # getting subject train (length 7352)
-  subject.train.path <- paste(train.dir, "subject_train.txt", sep="")
+  subject.train.path <- paste(train.dir, "/subject_train.txt", sep="")
   if(file.exists(subject.train.path)){
     train.subject <- as.vector(read.table(subject.train.path)[,1])
   }else{
-    print("!!! missing file !!!")
-    print(subject.train.path)
+    simpleError("!!! missing file !!!")
+    simpleError(subject.train.path)
   }
   
   ###########################
@@ -73,35 +76,35 @@ if (sum(na.omit(list.files(data.dir)%in%needed.files.and.dirs)) == 6){
   ###############
   
   # setting testing set directory
-  test.dir <- paste(data.dir, "test/", sep="")
+  test.dir <- paste(data.dir, "/test", sep="")
   
   # getiing X test
-  X.test.path <- paste(test.dir, "X_test.txt", sep="")
+  X.test.path <- paste(test.dir, "/X_test.txt", sep="")
   # reading file content (dim 2947  561)
   if(file.exists(X.test.path)){
     test.set <- read.table(X.test.path)
   }else{
-    print("!!! missing file !!!" )
-    print(X.test.path)
+    simpleError("!!! missing file !!!" )
+    simpleError(X.test.path)
   }
   
   # getiing testing class labels (linked with activity names)
-  y.test.path <- paste(test.dir, "y_test.txt", sep="")
+  y.test.path <- paste(test.dir, "/y_test.txt", sep="")
   # reading file content (length 2947)
   if(file.exists(y.test.path)){
     test.class <- as.vector(read.table(y.test.path)[,1])
   }else{
-    print("!!! missing file !!!" )
-    print(y.test.path)
+    simpleError("!!! missing file !!!" )
+    simpleError(y.test.path)
   }
   
   # getting subject test (length 2947)
-  subject.test.path <- paste(test.dir, "subject_test.txt", sep="")
+  subject.test.path <- paste(test.dir, "/subject_test.txt", sep="")
   if(file.exists(subject.test.path)){
     test.subject <- as.vector(read.table(subject.test.path)[,1])
   }else{
-    print("!!! missing file !!!")
-    print(subject.test.path)
+    simpleError("!!! missing file !!!")
+    simpleError(subject.test.path)
   }
 
   #################################################################
@@ -163,12 +166,12 @@ if (sum(na.omit(list.files(data.dir)%in%needed.files.and.dirs)) == 6){
 
   
   # saving tidy data set into .txt format file
-  write.table(tidy.set, paste(work.dir, "tidy_set.txt"))
+  write.table(tidy.set, paste(data.dir, "/tidy_set.txt"))
 
   
 
 }else{
-  print("Something is wrong with the files or dir names - NOT performing analysis")
+  simpleError("Something is wrong with the files or dir names - NOT performing analysis")
 }
 
 
