@@ -107,8 +107,8 @@ For each of measurements the mean and standard deviation were calculated. The va
 
 Additionally two first columns refer to:
 
-subject.id - identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
-class - one of 6 class activity name (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
+* subject.id - identifies the subject who performed the activity for each window sample. Its range is from 1 to 30. 
+* class - one of 6 class activity name (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING)
 
 # References
 
